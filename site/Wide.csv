@@ -1,0 +1,11 @@
+﻿tableSubject,tableName,tableNickname,descColumns,valueColumns,valueColumnFormula,descColumnFormula,timestampFormula,joinFormula
+,WWMeasure,WWM,"wwMeasureID, sampleID, dateTime, dateTimeStart, dateTimeEnd","analysisDate, reportDate, qualityFlag, value, notes",$tableName_type_unit_(index OR((aggregation OR aggregationOther) OR $customAggregation))_$valueColumnName,$tableName_descriptionColumnName,,left(SMP_sampleID -> WWM_sampleID)
+,Sample,SMP,$ALL,,,$tableName_descriptionColumnName,"if(type==""grb""), dateTime, (dateTimeStart+dateTimeEnd)/2)",
+,Site,SIT,$ALL,,,$tableName_descriptionColumnName,,left(SMP_siteID -> SIT_siteID)
+,SiteMeasure,STM,"siteMeasureID, siteID, sampleID, dateTime","value, qualityFlag, notes",$tableName_(type OR typeOther)_unit_((aggregation OR aggregationOther) OR $customAggregation)_$valueColumnName,$tableName_descriptionColumnName,dateTime,outer(SMP_timestamp -> STM_timestamp)
+,Lab,LAB,,,,,,
+,Reporter,REP,,,,,,
+,AssayMethod,ASM,,,,,,
+WW,Polygon,POLY,$ALL,,,$tableSubject-$tableName_descriptionColumnName,,left(SIT_polygonID -> POLY_polygonID)
+CPHD,Polygon,POLY,$ALL,,,$tableSubject-$tableName_descriptionColumnName,,left(CPHD_polygonID -> POLY_polygonID)
+,CovidPublicHealthData,CPHD,"cphdID, reporterID, polygonID, date","value, notes",$tableName_type_dateType_$valueColumnName,$tableName_descriptionColumnName,date,outer(CPHD_timestamp -> SMP_timestamp)

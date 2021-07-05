@@ -86,6 +86,7 @@ wbe_metadata_generation <- function(curr_wd = file.path(getwd(), "site"),
                                     lang = "fr"){
     tbls <- read_csv(file.path(curr_wd, "Tables.csv"))
     variables <- read_csv(file.path(curr_wd, "Variables.csv"))
+
     variableCat <- read_csv(file.path(curr_wd, "VariableCategory.csv"))
 
 
